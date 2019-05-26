@@ -10,7 +10,8 @@ import {
     TEXT_TAGS_IGNORING_ASSOCIATION,
     STYLESETS,
     TextOnlyPropTypes,
-    PREFORMATTED_TAGS
+    PREFORMATTED_TAGS,
+    PERC_SUPPORTED_STYLES
 } from './HTMLUtils';
 import { generateDefaultBlockStyles, generateDefaultTextStyles } from './HTMLDefaultStyles';
 import htmlparser2 from 'htmlparser2';
