@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, ViewPropTypes, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, ViewPropTypes, ActivityIndicator, Dimensions, Platform } from 'react-native';
 import { cssStringToRNStyle, _getElementClassStyles, cssStringToObject, cssObjectToString, computeTextStyles } from './HTMLStyles';
 import {
     BLOCK_TAGS,
@@ -461,7 +461,7 @@ export default class HTML extends PureComponent {
                 emSize,
                 ptSize,
                 ignoredStyles,
-                allowedStyles,
+                allowedStyles
               });
     
               const textElement = data ? (
@@ -479,7 +479,9 @@ export default class HTML extends PureComponent {
                 tagsStyles ? tagsStyles[tagName] : undefined,
                 classStyles,
                 convertedCSSStyles,
-                Wrapper === Text && this.getInheritedTextStyles(elementStyles),
+                (Wrapper === Text && Platform.OS !== 'ios') 
+                    ? this.getInheritedTextStyles(elementStyles) 
+                    : undefined
               ].filter(s => s !== undefined);
 
             const renderersProps = {};
@@ -498,7 +500,7 @@ export default class HTML extends PureComponent {
 
     /**
      * Apply styles from HTML, which correspond only to text attributes.
-     * @param {Object} styles from  
+     * @param {Object} styles
      */
     getInheritedTextStyles(styles){
         return Object.assign(
